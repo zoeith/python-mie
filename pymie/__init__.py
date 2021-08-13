@@ -41,7 +41,6 @@ from pint import UnitRegistry
 ureg = UnitRegistry()
 Quantity = ureg.Quantity
 
-@ureg.check('[length]', '[]')
 def q(wavelen, theta):
     """
     Calculates the magnitude of the momentum-transfer wavevector
@@ -60,7 +59,6 @@ def q(wavelen, theta):
     """
     return 4*np.pi/wavelen * np.sin(theta/2.0)
 
-@ureg.check('[]', '[]')
 def index_ratio(n_particle, n_matrix):
     """
     Calculates the ratio of refractive indices (m in Mie theory)
@@ -84,7 +82,6 @@ def index_ratio(n_particle, n_matrix):
     """
     return (n_particle/n_matrix).magnitude
 
-@ureg.check('[length]', '[]', '[length]')
 def size_parameter(wavelen, n_matrix, radius):
     """
     Calculates the size parameter x=k_matrix*a needed for Mie calculations
@@ -109,5 +106,5 @@ def size_parameter(wavelen, n_matrix, radius):
     """
     # must use to('dimensionless') in case the wavelength and radius are
     # specified in different units; pint doesn't automatically make
-    # ratios such as 'nm'/'um' dimensionless 
+    # ratios such as 'nm'/'um' dimensionless
     return (2*np.pi*n_matrix/wavelen * radius).to('dimensionless').magnitude
